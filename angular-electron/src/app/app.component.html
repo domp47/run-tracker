@@ -1,3 +1,26 @@
 <mat-toolbar color="primary">
   <span>Car Tracker</span>
+  <span class="spacer"></span>
+  <div>
+    <button
+      mat-icon-button
+      aria-label="Create New File"
+      matTooltip="Create New File"
+    >
+      <mat-icon>library_add</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Open File" matTooltip="Create New File">
+      <mat-icon>folder_open</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      aria-label="Toggle Theme"
+      [matTooltip]="
+        userData?.darkMode ? 'Switch To Light Mode' : 'Switch To Dark Mode'
+      "
+      (click)="setTheme()"
+    >
+      <mat-icon>{{ userData?.darkMode ? "light_mode" : "dark_mode" }}</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>

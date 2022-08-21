@@ -1,29 +1,40 @@
-import { Component } from '@angular/core';
-import { ElectronService } from './core/services';
-import { FilesService } from './core/services';
-import { APP_CONFIG } from '../environments/environment';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { UserDataService } from './core/services/user-data/user-data.service';
+import { UserData } from './models/user-data.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  constructor(
-    private electronService: ElectronService,
-    private filesService: FilesService
-  ) {
-    console.log('APP_CONFIG', APP_CONFIG);
+export class AppComponent implements OnInit {
+  private userData: UserData;
 
-    if (electronService.isElectron) {
-      console.log(process.env);
-      console.log('Run in electron');
-      console.log('Electron ipcRenderer', this.electronService.ipcRenderer);
-      console.log('NodeJS childProcess', this.electronService.childProcess);
-    } else {
-      console.log('Run in browser');
+  constructor(
+    private userDataService: UserDataService,
+    private renderer: Renderer2
+  ) {}
+
+  async ngOnInit() {
+    this.userData = await this.userDataService.getUserData();
+    this.setTheme(this.userData.darkMode);
+  }
+
+  /**
+   * Set's the webpages theme.
+   * @param darkMode Whether to set to dark mode, if not passed it will toggle the current theme.
+   */
+  setTheme(darkMode: boolean | undefined = undefined) {
+    if (darkMode == undefined) {
+      darkMode = !this.userData.darkMode;
+      this.userData.darkMode = darkMode;
+      this.userDataService.setUserData(this.userData);
     }
 
-    console.log(filesService.getUserData());
+    if (darkMode) {
+      this.renderer.addClass(document.body, 'theme-alternate');
+    } else {
+      this.renderer.removeClass(document.body, 'theme-alternate');
+    }
   }
 }

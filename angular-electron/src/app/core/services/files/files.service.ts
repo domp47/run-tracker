@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserData } from '../../../models/user-data.model';
+import { DEFAULT_USER_DATA, UserData } from '../../../models/user-data.model';
 import { ipcRenderer } from 'electron';
 import { ElectronService } from '../electron/electron.service';
 
@@ -15,11 +15,17 @@ export class FilesService {
     }
   }
 
-  async getUserData(): Promise<UserData | undefined> {
-    return await this.ipcRenderer.invoke('read-user-data');
+  async getUserData(): Promise<UserData> {
+    const dataStr: string = await this.ipcRenderer.invoke('read-user-data');
+
+    if (dataStr == undefined) {
+      return DEFAULT_USER_DATA;
+    }
+
+    return JSON.parse(dataStr);
   }
 
   async setUserData(data: UserData) {
-    await this.ipcRenderer.invoke('set-user-data', data);
+    await this.ipcRenderer.invoke('set-user-data', JSON.stringify(data));
   }
 }
