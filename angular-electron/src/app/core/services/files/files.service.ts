@@ -28,4 +28,20 @@ export class FilesService {
   async setUserData(data: UserData) {
     await this.ipcRenderer.invoke('set-user-data', JSON.stringify(data));
   }
+
+  async chooseOpenFile(title: string): Promise<string> {
+    return await this.ipcRenderer.invoke('choose-open-file', title);
+  }
+
+  async chooseSaveFile(title: string): Promise<string> {
+    return await this.ipcRenderer.invoke('choose-save-file', title);
+  }
+
+  async readFile(filePath: string): Promise<string> {
+    return await this.ipcRenderer.invoke('read-file', filePath);
+  }
+
+  async writeFile(filePath: string, data: string) {
+    await this.ipcRenderer.invoke('save-file', filePath, data);
+  }
 }

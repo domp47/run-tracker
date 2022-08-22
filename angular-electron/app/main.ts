@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, ipcMain } from 'electron';
+import { app, BrowserWindow, screen, ipcMain, dialog } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -95,4 +95,43 @@ ipcMain.handle('read-user-data', () => {
 ipcMain.handle('set-user-data', (_event, data: string) => {
   const userDataPath = path.join(app.getPath('userData'), 'user-data.json');
   fs.writeFileSync(userDataPath, data);
+});
+
+ipcMain.handle('choose-open-file', (_event, title: string) => {
+  return dialog.showOpenDialogSync(win, {
+    title: title,
+    filters: [
+      {
+        name: 'TST Files',
+        extensions: ['.tst'],
+      },
+    ],
+    properties: ['openFile'],
+  });
+});
+
+ipcMain.handle('choose-save-file', (_event, title: string) => {
+  return dialog.showSaveDialogSync(win, {
+    title: title,
+    filters: [
+      {
+        name: 'TST Files',
+        extensions: ['.tst'],
+      },
+    ],
+  });
+});
+
+ipcMain.handle('read-file', (_event, filePath: string) => {
+  if (!fs.existsSync(filePath)) {
+    return undefined;
+  }
+
+  const buffer = fs.readFileSync(filePath);
+
+  return buffer.toString();
+});
+
+ipcMain.handle('save-file', (_event, filePath: string, fileData: string) => {
+  fs.writeFileSync(filePath, fileData);
 });
