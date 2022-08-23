@@ -1,6 +1,29 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { SaveFileService } from './core/services/save-file/save-file.service';
 import { UserDataService } from './core/services/user-data/user-data.service';
+import { NewSaveDialogComponent } from './dialogs/new-save/new-save.component';
+import {
+  TimeSlipTrackingFile,
+  Run,
+  MaintenanceItem,
+} from './models/tracking-file.model';
 import { UserData } from './models/user-data.model';
+
+export enum RowType {
+  MAINTENANCE,
+  RUN,
+}
+
+export interface TableRow {
+  type: RowType;
+  item: MaintenanceItem | Run;
+}
+
+export interface PersonalBest {
+  runId: string;
+  value: number;
+}
 
 @Component({
   selector: 'app-root',
@@ -9,15 +32,47 @@ import { UserData } from './models/user-data.model';
 })
 export class AppComponent implements OnInit {
   private userData: UserData;
+  private timeTracking: TimeSlipTrackingFile;
+
+  tableData: TableRow[];
+  bestRT: PersonalBest = AppComponent.setDefaultPb(Number.POSITIVE_INFINITY);
+  best60: PersonalBest = AppComponent.setDefaultPb(Number.POSITIVE_INFINITY);
+  bestFS: PersonalBest = AppComponent.setDefaultPb(Number.POSITIVE_INFINITY);
+  best330: PersonalBest = AppComponent.setDefaultPb(Number.POSITIVE_INFINITY);
+  bestBS: PersonalBest = AppComponent.setDefaultPb(Number.POSITIVE_INFINITY);
+  bestEighth: PersonalBest = AppComponent.setDefaultPb(
+    Number.POSITIVE_INFINITY
+  );
+  BestMPH: PersonalBest = AppComponent.setDefaultPb(Number.NEGATIVE_INFINITY);
 
   constructor(
     private userDataService: UserDataService,
-    private renderer: Renderer2
+    private saveFileService: SaveFileService,
+    private renderer: Renderer2,
+    public dialog: MatDialog
   ) {}
 
   async ngOnInit() {
     this.userData = await this.userDataService.getUserData();
     this.setTheme(this.userData.darkMode);
+
+    if (!(this.userData.lastFile === undefined)) {
+      this.timeTracking = (
+        await this.saveFileService.loadSave(this.userData.lastFile)
+      ).data;
+      this.calculateTable();
+    }
+  }
+
+  get fileTitle() {
+    return this.timeTracking?.car;
+  }
+
+  static setDefaultPb(defaultValue: number): PersonalBest {
+    return {
+      runId: null,
+      value: defaultValue,
+    };
   }
 
   /**
@@ -35,6 +90,160 @@ export class AppComponent implements OnInit {
       this.renderer.addClass(document.body, 'theme-alternate');
     } else {
       this.renderer.removeClass(document.body, 'theme-alternate');
+    }
+  }
+
+  async createNewSave() {
+    const dialogRef = this.dialog.open(NewSaveDialogComponent, {
+      minWidth: '50vw',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!(result === undefined)) {
+        this.userData.lastFile = result.filePath;
+        this.userDataService.setUserData(this.userData);
+
+        this.timeTracking = {
+          car: result.car,
+          maintenance: [],
+          runs: [],
+        };
+        this.saveFileService.save({
+          filePath: this.userData.lastFile,
+          data: this.timeTracking,
+        });
+      }
+    });
+  }
+
+  async openSave() {
+    const save = await this.saveFileService.loadSave();
+
+    // If either save doesn't exist or no file selected.
+    if (save == undefined) {
+      return;
+    }
+
+    this.userData.lastFile = save.filePath;
+    this.userDataService.setUserData(this.userData);
+
+    this.timeTracking = save.data;
+    this.calculateTable();
+  }
+
+  calculateTable() {
+    const maintenance = this.timeTracking?.maintenance ?? [];
+    maintenance.sort((a: MaintenanceItem, b: MaintenanceItem) => {
+      if (a.date < b.date) {
+        return -1;
+      }
+
+      if (a.date > b.date) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    const runs = this.timeTracking?.runs ?? [];
+    runs.sort((a: Run, b: Run) => {
+      if (a.date < b.date) {
+        return -1;
+      }
+
+      if (a.date > b.date) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    this.tableData = [];
+    let runCounter = 1;
+    while (runs.length > 0 || maintenance.length > 0) {
+      if (
+        runs.length == 0 ||
+        (maintenance.length > 0 && maintenance[0].date < runs[0].date)
+      ) {
+        const maintenanceItem = maintenance.shift();
+
+        console.log('Adding maintenance');
+
+        if (maintenanceItem.resetRunCount) {
+          runCounter = 1;
+        }
+
+        this.tableData.push({
+          type: RowType.MAINTENANCE,
+          item: maintenanceItem,
+        });
+      } else {
+        console.log('Adding run');
+
+        const run = runs.shift();
+        run['runCount'] = runCounter;
+        runCounter++;
+
+        this.tableData.push({
+          type: RowType.RUN,
+          item: run,
+        });
+
+        if (run.result.reactionTime < this.bestRT.value) {
+          this.bestRT = {
+            runId: run.id,
+            value: run.result.reactionTime,
+          };
+        }
+
+        if (run.result.sixtyFoot < this.best60.value) {
+          this.best60 = {
+            runId: run.id,
+            value: run.result.sixtyFoot,
+          };
+        }
+
+        if (
+          run.result.threeThirtyFoot - run.result.sixtyFoot <
+          this.bestFS.value
+        ) {
+          this.bestFS = {
+            runId: run.id,
+            value: run.result.threeThirtyFoot - run.result.sixtyFoot,
+          };
+        }
+
+        if (run.result.threeThirtyFoot < this.best330.value) {
+          this.best330 = {
+            runId: run.id,
+            value: run.result.threeThirtyFoot,
+          };
+        }
+
+        if (
+          run.result.eighthMile - run.result.threeThirtyFoot <
+          this.bestBS.value
+        ) {
+          this.bestBS = {
+            runId: run.id,
+            value: run.result.eighthMile - run.result.threeThirtyFoot,
+          };
+        }
+
+        if (run.result.eighthMile < this.bestEighth.value) {
+          this.bestEighth = {
+            runId: run.id,
+            value: run.result.eighthMile,
+          };
+        }
+
+        if (run.result.mph > this.BestMPH.value) {
+          this.BestMPH = {
+            runId: run.id,
+            value: run.result.mph,
+          };
+        }
+      }
     }
   }
 }

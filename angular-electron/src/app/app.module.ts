@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 // import { MatDatepickerModule } from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material/core';
 // import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -23,27 +24,32 @@ import { MatCardModule } from '@angular/material/card';
 // import { MatProgressBarModule } from '@angular/material/progress-bar';
 // import { MatMenuModule } from '@angular/material/menu';
 // import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+// import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
+import { NewSaveDialogComponent } from './dialogs/new-save/new-save.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NewSaveDialogComponent],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
     CoreModule,
 
     // Angular Material Components
     MatToolbarModule,
     MatDividerModule,
+    MatDialogModule,
     // MatFormFieldModule,
     // MatSidenavModule,
     // MatListModule,
@@ -67,7 +73,7 @@ import { AppComponent } from './app.component';
     // MatProgressBarModule,
     // MatMenuModule,
     // MatExpansionModule,
-    MatSnackBarModule,
+    // MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

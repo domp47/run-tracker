@@ -248,6 +248,10 @@ $altTheme: (
 
 .theme-alternate {
   @include mat.all-component-themes($altTheme);
+
+  .dark-card {
+    background-color: $dark-bg-lighter-5;
+  }
 }
 
 // Specific component overrides, pieces that are not in line with the general theming
@@ -273,4 +277,29 @@ $altTheme: (
   .mat-badge-content {
     font-family: "Roboto";
   }
+}
+
+// Custom Styles Below
+.input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.ml-2 {
+  margin-left: 2rem !important;
+}
+
+.edit-action-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.dark-card {
+  background-color: $light-bg-darker-5;
 }

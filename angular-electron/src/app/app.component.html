@@ -6,10 +6,16 @@
       mat-icon-button
       aria-label="Create New File"
       matTooltip="Create New File"
+      (click)="createNewSave()"
     >
       <mat-icon>library_add</mat-icon>
     </button>
-    <button mat-icon-button aria-label="Open File" matTooltip="Create New File">
+    <button
+      mat-icon-button
+      aria-label="Open File"
+      matTooltip="Open File"
+      (click)="openSave()"
+    >
       <mat-icon>folder_open</mat-icon>
     </button>
     <button
@@ -24,3 +30,37 @@
     </button>
   </div>
 </mat-toolbar>
+<div class="content">
+  <h1 class="center-heading">{{ fileTitle }}</h1>
+  <h2 class="center-heading">Personal Bests</h2>
+  <div class="summary-container">
+    <mat-card class="dark-card">
+      <mat-card-title>R/T</mat-card-title>
+      <mat-card-content>{{ bestRT?.value }}</mat-card-content>
+    </mat-card>
+    <mat-card class="dark-card">
+      <mat-card-title>60'</mat-card-title>
+      <mat-card-content>{{ best60?.value }}</mat-card-content>
+    </mat-card>
+    <mat-card class="dark-card">
+      <mat-card-title>Front Split</mat-card-title>
+      <mat-card-content>{{ bestFS?.value }}</mat-card-content>
+    </mat-card>
+    <mat-card class="dark-card">
+      <mat-card-title>330'</mat-card-title>
+      <mat-card-content>{{ best330?.value }}</mat-card-content>
+    </mat-card>
+    <mat-card class="dark-card">
+      <mat-card-title>Back Split</mat-card-title>
+      <mat-card-content>{{ bestBS?.value }}</mat-card-content>
+    </mat-card>
+    <mat-card class="dark-card">
+      <mat-card-title>1/8</mat-card-title>
+      <mat-card-content>{{ bestEighth?.value }}</mat-card-content>
+    </mat-card>
+    <mat-card class="dark-card">
+      <mat-card-title>MPH</mat-card-title>
+      <mat-card-content>{{ BestMPH?.value }}</mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<mat-card>
+  <mat-card-title>Create New Save</mat-card-title>
+  <mat-card-content [formGroup]="form">
+    <mat-divider [inset]="false"></mat-divider>
+
+    <div class="input-container mt-2">
+      <mat-form-field>
+        <mat-label>Car</mat-label>
+        <input
+          matInput
+          id="carName"
+          aria-label="Enter a descriptive name for this file."
+          type="text"
+          formControlName="car"
+          required
+        />
+      </mat-form-field>
+      <mat-icon
+        aria-hidden="true"
+        matTooltip="Enter a Descriptive Name For This File."
+        >help</mat-icon
+      >
+    </div>
+
+    <div class="input-container mt-2">
+      <mat-form-field>
+        <mat-label>Save File</mat-label>
+        <input
+          matInput
+          id="savePath"
+          type="text"
+          formControlName="filePath"
+          required
+          [readonly]="true"
+        />
+      </mat-form-field>
+      <button mat-button color="primary" (click)="chooseFile()">
+        Choose File
+      </button>
+    </div>
+
+    <mat-divider [inset]="false"></mat-divider>
+
+    <div class="mt-2 edit-action-buttons">
+      <button
+        id="save"
+        class="ml-2"
+        mat-raised-button
+        (click)="save()"
+        color="primary"
+      >
+        Save
+      </button>
+      <button id="cancel" color="accent" mat-raised-button (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

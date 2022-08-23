@@ -1,3 +1,21 @@
 .spacer {
   flex: 1 1 auto;
 }
+
+.content {
+  margin: 1rem;
+}
+
+.summary-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  & mat-card {
+    margin-left: 1rem;
+  }
+}
+
+.center-heading {
+  text-align: center;
+}

@@ -21,32 +21,43 @@ export class SaveFileService {
   ) {}
 
   /**
-   * Let the user choose a new file, get empty save file, then save it.
+   * Let the user choose a new save file name and path.
    */
-  async createNew(data: TimeSlipTrackingFile): Promise<string> {
+  async chooseNewFile(): Promise<string> {
     let filePath: string;
 
     if (this.electronService.isElectron) {
       filePath = await this.filesService.chooseSaveFile(
         'Create New Time Slip Tracking File'
       );
+
+      if (!filePath.endsWith('.tst')) {
+        filePath = filePath + '.tst';
+      }
     } else {
       filePath = '/tmp/tst.tst';
     }
 
-    await this.save({ filePath: filePath, data: data });
-
     return filePath;
   }
 
-  async loadSave(): Promise<SaveFile> {
+  async loadSave(
+    filePath: string | undefined = undefined
+  ): Promise<SaveFile | undefined> {
     let saveFilePath: string;
     let saveData: TimeSlipTrackingFile;
     if (this.electronService.isElectron) {
-      const filePath = await this.filesService.chooseOpenFile(
-        'Open a Time Slip Tracking File'
-      );
+      if (filePath === undefined) {
+        filePath = await this.filesService.chooseOpenFile(
+          'Open a Time Slip Tracking File'
+        );
+      }
+
       const saveDataStr = await this.filesService.readFile(filePath);
+
+      if (saveDataStr === undefined) {
+        return undefined;
+      }
 
       saveData = JSON.parse(saveDataStr);
       saveFilePath = filePath;
@@ -62,6 +73,7 @@ export class SaveFileService {
         ],
         runs: [
           {
+            id: crypto.randomUUID(),
             date: new Date(2022, 5, 28),
             type: RunType.TEST,
             round: null,

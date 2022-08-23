@@ -19,6 +19,7 @@ export interface TimeSlip {
 }
 
 export interface Run {
+  id: string;
   date: Date;
   type: RunType;
   round: number | null;
