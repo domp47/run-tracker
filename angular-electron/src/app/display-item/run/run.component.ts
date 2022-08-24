@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PersonalBest } from '../../app.component';
-import { Run } from '../../models/tracking-file.model';
+import { Run, RunType } from '../../models/tracking-file.model';
 
 @Component({
   selector: 'app-run',
@@ -18,7 +18,9 @@ export class RunComponent implements OnInit {
   @Input() pbMPH: PersonalBest;
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.run.id === this.pbRT.runId);
+  ngOnInit(): void {}
+
+  get runType(): typeof RunType {
+    return RunType;
   }
 }

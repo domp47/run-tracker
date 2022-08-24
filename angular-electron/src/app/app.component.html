@@ -33,7 +33,7 @@
     </button>
   </div>
 </mat-toolbar>
-<div class="content">
+<div *ngIf="tableData?.length > 0" class="content">
   <h2 class="center-heading">Personal Bests</h2>
   <div class="summary-container mb-2">
     <mat-card class="dark-card">

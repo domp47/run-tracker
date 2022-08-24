@@ -260,6 +260,10 @@ $altTheme: (
   .highlight {
     color: #000000;
   }
+
+  .vertical-divider {
+    border-color: $dark-bg-lighter-30;
+  }
 }
 
 // Specific component overrides, pieces that are not in line with the general theming
@@ -331,4 +335,10 @@ $altTheme: (
 
 .highlight {
   background-color: #fbf719;
+}
+
+.vertical-divider {
+  border-left: 4px solid $light-bg-darker-30;
+  border-radius: 4px;
+  margin: 0 2rem;
 }

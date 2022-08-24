@@ -80,7 +80,7 @@ export class SaveFileService {
             round: null,
             opponent: null,
             outcome: null,
-            notes: null,
+            notes: 'Added 1 degree all the way',
             raceTrack: 'TMP',
             result: {
               reactionTime: 0.053,

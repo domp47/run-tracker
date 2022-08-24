@@ -1,5 +1,12 @@
 <div class="run-border run-content">
-  <div class="timeslip">
+  <div>
+    <h3>Engine Hit:</h3>
+    <div style="text-align: center">
+      {{ run.runCount }}
+    </div>
+  </div>
+  <div class="vertical-divider"></div>
+  <div class="run-section">
     <div class="col">
       <span>R/T</span>
       <span>60'</span>
@@ -33,8 +40,40 @@
         run.result.eighthMile | number: "1.3-3"
       }}</span>
       <span [ngClass]="{ highlight: run.id === pbMPH.runId }">{{
-        run.result.mph | number: "1.3-3"
+        run.result.mph | number: "1.2-2"
       }}</span>
     </div>
+  </div>
+  <div class="vertical-divider"></div>
+  <div class="run-section">
+    <div class="col">
+      <span>Date</span>
+      <span>Track</span>
+      <span>Round</span>
+      <span *ngIf="!(run.type === runType.TEST)">Opponent</span>
+      <span *ngIf="!(run.type === runType.TEST)">Outcome</span>
+    </div>
+    <div class="col ml-sm">
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span *ngIf="!(run.type === runType.TEST)">...</span>
+      <span *ngIf="!(run.type === runType.TEST)">...</span>
+    </div>
+    <div class="col ml-sm">
+      <span>{{ run.date | date: "longDate" }}</span>
+      <span>{{ run.raceTrack }}</span>
+      <span
+        >{{ run.type }}{{ run.type === runType.TEST ? "" : run.round }}</span
+      >
+      <span *ngIf="!(run.type === runType.TEST)">{{ run.opponent }}</span>
+      <span *ngIf="!(run.type === runType.TEST)">{{ run.outcome }}</span>
+    </div>
+  </div>
+  <div class="vertical-divider"></div>
+  <div class="run-section">
+    <p>
+      {{ run.notes }}
+    </p>
   </div>
 </div>

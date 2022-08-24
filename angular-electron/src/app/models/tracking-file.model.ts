@@ -5,9 +5,9 @@ export interface MaintenanceItem {
 }
 
 export enum RunType {
-  TEST = 'test',
-  QUALIFYING = 'qualifying',
-  ELIMINATIONS = 'eliminations',
+  TEST = 'Testing',
+  QUALIFYING = 'Q',
+  ELIMINATIONS = 'E',
 }
 
 export interface TimeSlip {
