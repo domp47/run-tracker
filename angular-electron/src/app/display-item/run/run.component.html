@@ -1,0 +1,40 @@
+<div class="run-border run-content">
+  <div class="timeslip">
+    <div class="col">
+      <span>R/T</span>
+      <span>60'</span>
+      <span>330'</span>
+      <span>B/S</span>
+      <span>1/8</span>
+      <span>MPH</span>
+    </div>
+    <div class="col ml-sm">
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+      <span>...</span>
+    </div>
+    <div class="col ml-sm values">
+      <span [ngClass]="{ highlight: run.id === pbRT.runId }">{{
+        run.result.reactionTime | number: "1.3-3"
+      }}</span>
+      <span [ngClass]="{ highlight: run.id === pb60.runId }">{{
+        run.result.sixtyFoot | number: "1.3-3"
+      }}</span>
+      <span [ngClass]="{ highlight: run.id === pb330.runId }">{{
+        run.result.threeThirtyFoot | number: "1.3-3"
+      }}</span>
+      <span [ngClass]="{ highlight: run.id === pbBS.runId }">{{
+        run.result.eighthMile - run.result.threeThirtyFoot | number: "1.3-3"
+      }}</span>
+      <span [ngClass]="{ highlight: run.id === pbEighth.runId }">{{
+        run.result.eighthMile | number: "1.3-3"
+      }}</span>
+      <span [ngClass]="{ highlight: run.id === pbMPH.runId }">{{
+        run.result.mph | number: "1.3-3"
+      }}</span>
+    </div>
+  </div>
+</div>

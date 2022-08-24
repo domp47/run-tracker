@@ -1,5 +1,8 @@
 <mat-toolbar color="primary">
-  <span>Car Tracker</span>
+  <span>
+    Car Tracker
+    <span *ngIf="fileTitle"> - {{ fileTitle }}</span>
+  </span>
   <span class="spacer"></span>
   <div>
     <button
@@ -31,9 +34,8 @@
   </div>
 </mat-toolbar>
 <div class="content">
-  <h1 class="center-heading">{{ fileTitle }}</h1>
   <h2 class="center-heading">Personal Bests</h2>
-  <div class="summary-container">
+  <div class="summary-container mb-2">
     <mat-card class="dark-card">
       <mat-card-title>R/T</mat-card-title>
       <mat-card-content>{{ bestRT?.value }}</mat-card-content>
@@ -42,10 +44,10 @@
       <mat-card-title>60'</mat-card-title>
       <mat-card-content>{{ best60?.value }}</mat-card-content>
     </mat-card>
-    <mat-card class="dark-card">
+    <!-- <mat-card class="dark-card">
       <mat-card-title>Front Split</mat-card-title>
       <mat-card-content>{{ bestFS?.value }}</mat-card-content>
-    </mat-card>
+    </mat-card> -->
     <mat-card class="dark-card">
       <mat-card-title>330'</mat-card-title>
       <mat-card-content>{{ best330?.value }}</mat-card-content>
@@ -62,5 +64,24 @@
       <mat-card-title>MPH</mat-card-title>
       <mat-card-content>{{ BestMPH?.value }}</mat-card-content>
     </mat-card>
+  </div>
+  <mat-divider [inset]="false"></mat-divider>
+  <div class="content">
+    <div *ngFor="let row of tableData">
+      <app-maintenance
+        *ngIf="row.type == rowType.MAINTENANCE"
+        [maintenance]="row.item"
+      ></app-maintenance>
+      <app-run
+        *ngIf="row.type == rowType.RUN"
+        [run]="row.item"
+        [pbRT]="bestRT"
+        [pb60]="best60"
+        [pb330]="best330"
+        [pbBS]="bestBS"
+        [pbEighth]="bestEighth"
+        [pbMPH]="BestMPH"
+      ></app-run>
+    </div>
   </div>
 </div>

@@ -64,6 +64,7 @@ export class SaveFileService {
     } else {
       saveData = {
         car: 'Firebird',
+        idCounter: 1,
         maintenance: [
           {
             description: 'New Motor',
@@ -73,11 +74,13 @@ export class SaveFileService {
         ],
         runs: [
           {
-            id: crypto.randomUUID(),
+            id: 1,
             date: new Date(2022, 5, 28),
             type: RunType.TEST,
             round: null,
             opponent: null,
+            outcome: null,
+            notes: null,
             raceTrack: 'TMP',
             result: {
               reactionTime: 0.053,

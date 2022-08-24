@@ -35,9 +35,16 @@ import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
 import { NewSaveDialogComponent } from './dialogs/new-save/new-save.component';
+import { RunComponent } from './display-item/run/run.component';
+import { MaintenanceComponent } from './display-item/maintenance/maintenance.component';
 
 @NgModule({
-  declarations: [AppComponent, NewSaveDialogComponent],
+  declarations: [
+    AppComponent,
+    NewSaveDialogComponent,
+    RunComponent,
+    MaintenanceComponent,
+  ],
   imports: [
     BrowserModule,
     FormsModule,

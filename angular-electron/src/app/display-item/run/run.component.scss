@@ -1,0 +1,21 @@
+.timeslip {
+  display: flex;
+
+  & .col {
+    display: flex;
+    flex-direction: column;
+
+    & span {
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  & .values {
+    text-align: right;
+  }
+}
+
+.run-content {
+  display: flex;
+  padding: 1rem;
+}

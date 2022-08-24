@@ -21,7 +21,7 @@ export interface TableRow {
 }
 
 export interface PersonalBest {
-  runId: string;
+  runId: number;
   value: number;
 }
 
@@ -75,6 +75,10 @@ export class AppComponent implements OnInit {
     };
   }
 
+  public get rowType(): typeof RowType {
+    return RowType;
+  }
+
   /**
    * Set's the webpages theme.
    * @param darkMode Whether to set to dark mode, if not passed it will toggle the current theme.
@@ -105,6 +109,7 @@ export class AppComponent implements OnInit {
 
         this.timeTracking = {
           car: result.car,
+          idCounter: 0,
           maintenance: [],
           runs: [],
         };
@@ -150,8 +155,14 @@ export class AppComponent implements OnInit {
       if (a.date < b.date) {
         return -1;
       }
-
       if (a.date > b.date) {
+        return 1;
+      }
+
+      if (a.id < b.id) {
+        return -1;
+      }
+      if (a.id > b.id) {
         return 1;
       }
 
@@ -167,8 +178,6 @@ export class AppComponent implements OnInit {
       ) {
         const maintenanceItem = maintenance.shift();
 
-        console.log('Adding maintenance');
-
         if (maintenanceItem.resetRunCount) {
           runCounter = 1;
         }
@@ -178,8 +187,6 @@ export class AppComponent implements OnInit {
           item: maintenanceItem,
         });
       } else {
-        console.log('Adding run');
-
         const run = runs.shift();
         run['runCount'] = runCounter;
         runCounter++;

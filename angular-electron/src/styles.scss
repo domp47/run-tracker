@@ -28,13 +28,13 @@ $fontConfig: (
   display-3: mat.define-typography-level(56px, 56px, 400, "Roboto", -0.0089em),
   display-2: mat.define-typography-level(45px, 48px, 400, "Roboto", 0em),
   display-1: mat.define-typography-level(34px, 40px, 400, "Roboto", 0.0074em),
-  headline: mat.define-typography-level(24px, 32px, 400, "Roboto", 0em),
-  title: mat.define-typography-level(20px, 32px, 500, "Roboto", 0.0075em),
-  subheading-2: mat.define-typography-level(16px, 28px, 400, "Roboto", 0.0094em),
-  subheading-1: mat.define-typography-level(15px, 24px, 500, "Roboto", 0.0067em),
-  body-2: mat.define-typography-level(14px, 24px, 500, "Roboto", 0.0179em),
-  body-1: mat.define-typography-level(14px, 20px, 400, "Roboto", 0.0179em),
-  button: mat.define-typography-level(14px, 14px, 500, "Roboto", 0.0893em),
+  headline: mat.define-typography-level(28px, 32px, 400, "Roboto", 0em),
+  title: mat.define-typography-level(26px, 32px, 500, "Roboto", 0.0075em),
+  subheading-2: mat.define-typography-level(26px, 28px, 400, "Roboto", 0.0094em),
+  subheading-1: mat.define-typography-level(22px, 24px, 500, "Roboto", 0.0067em),
+  body-2: mat.define-typography-level(20px, 24px, 500, "Roboto", 0.0179em),
+  body-1: mat.define-typography-level(20px, 20px, 400, "Roboto", 0.0179em),
+  button: mat.define-typography-level(18px, 18px, 500, "Roboto", 0.0893em),
   caption: mat.define-typography-level(12px, 20px, 400, "Roboto", 0.0333em),
   input: mat.define-typography-level(inherit, 1.125, 400, "Roboto", 1.5px),
 );
@@ -252,6 +252,14 @@ $altTheme: (
   .dark-card {
     background-color: $dark-bg-lighter-5;
   }
+
+  .run-border {
+    border-color: $dark-bg-lighter-30;
+  }
+
+  .highlight {
+    color: #000000;
+  }
 }
 
 // Specific component overrides, pieces that are not in line with the general theming
@@ -295,6 +303,18 @@ $altTheme: (
   margin-left: 2rem !important;
 }
 
+.ml-1 {
+  margin-left: 1rem;
+}
+
+.ml-sm {
+  margin-left: 0.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
 .edit-action-buttons {
   display: flex;
   flex-direction: row-reverse;
@@ -302,4 +322,13 @@ $altTheme: (
 
 .dark-card {
   background-color: $light-bg-darker-5;
+}
+
+.run-border {
+  border: 5px solid $light-bg-darker-30;
+  border-radius: 5px;
+}
+
+.highlight {
+  background-color: #fbf719;
 }
