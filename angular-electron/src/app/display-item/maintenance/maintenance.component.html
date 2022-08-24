@@ -1,1 +1,3 @@
-<div>maintenance</div>
+<div class="maintenance-border content">
+  {{ maintenance.date | date: "YYYY-MMM-dd" }}: {{ maintenance.description }}
+</div>
