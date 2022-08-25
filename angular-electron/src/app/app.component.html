@@ -33,9 +33,9 @@
     </button>
   </div>
 </mat-toolbar>
-<div *ngIf="tableData?.length > 0" class="content">
-  <h2 class="center-heading">Personal Bests</h2>
-  <div class="summary-container mb-2">
+<div class="content">
+  <h2 *ngIf="tableData?.length > 0" class="center-heading">Personal Bests</h2>
+  <div *ngIf="tableData?.length > 0" class="summary-container">
     <mat-card class="dark-card">
       <mat-card-title>R/T</mat-card-title>
       <mat-card-content>{{ bestRT?.value }}</mat-card-content>
@@ -65,9 +65,19 @@
       <mat-card-content>{{ BestMPH?.value }}</mat-card-content>
     </mat-card>
   </div>
-  <mat-divider [inset]="false"></mat-divider>
+  <div *ngIf="fileTitle" class="mb-sm ml-1">
+    <button mat-raised-button color="primary" (click)="openNewRun()">
+      <mat-icon aria-hidden="true">description</mat-icon>
+      Add Run
+    </button>
+    <button mat-raised-button color="accent" class="ml-1">
+      <mat-icon aria-hidden="true">build</mat-icon>
+      Add Maintenance
+    </button>
+  </div>
+  <mat-divider *ngIf="fileTitle" [inset]="false"></mat-divider>
   <div class="content">
-    <div *ngFor="let row of tableData">
+    <div *ngFor="let row of tableData" class="mb-1">
       <app-maintenance
         *ngIf="row.type == rowType.MAINTENANCE"
         [maintenance]="row.item"

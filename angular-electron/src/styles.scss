@@ -159,18 +159,18 @@ $mat-dark-theme-background: (
 // Theme Config
 
 body {
-  --primary-color: #1c9700;
-  --primary-lighter-color: #bbe0b3;
-  --primary-darker-color: #117a00;
+  --primary-color: #096800;
+  --primary-lighter-color: #b5d2b3;
+  --primary-darker-color: #054b00;
   --text-primary-color: #{$light-primary-text};
   --text-primary-lighter-color: #{$dark-primary-text};
   --text-primary-darker-color: #{$light-primary-text};
 }
 $mat-primary: (
-  main: #1c9700,
-  lighter: #bbe0b3,
-  darker: #117a00,
-  200: #1c9700,
+  main: #096800,
+  lighter: #b5d2b3,
+  darker: #054b00,
+  200: #096800,
   // For slide toggle,
   contrast:
     (
@@ -182,18 +182,18 @@ $mat-primary: (
 $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
 
 body {
-  --accent-color: #797979;
-  --accent-lighter-color: #d7d7d7;
-  --accent-darker-color: #5c5c5c;
+  --accent-color: #595959;
+  --accent-lighter-color: #cdcdcd;
+  --accent-darker-color: #3e3e3e;
   --text-accent-color: #{$light-primary-text};
   --text-accent-lighter-color: #{$dark-primary-text};
   --text-accent-darker-color: #{$light-primary-text};
 }
 $mat-accent: (
-  main: #797979,
-  lighter: #d7d7d7,
-  darker: #5c5c5c,
-  200: #797979,
+  main: #595959,
+  lighter: #cdcdcd,
+  darker: #3e3e3e,
+  200: #595959,
   // For slide toggle,
   contrast:
     (
@@ -264,6 +264,10 @@ $altTheme: (
   .vertical-divider {
     border-color: $dark-bg-lighter-30;
   }
+
+  .maintenance-border {
+    border-color: #ff8359;
+  }
 }
 
 // Specific component overrides, pieces that are not in line with the general theming
@@ -308,15 +312,31 @@ $altTheme: (
 }
 
 .ml-1 {
-  margin-left: 1rem;
+  margin-left: 1rem !important;
 }
 
 .ml-sm {
   margin-left: 0.5rem;
 }
 
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
 .mb-2 {
   margin-bottom: 2rem;
+}
+
+.mb-sm {
+  margin-bottom: 0.5rem;
+}
+
+.mb-xs {
+  margin-bottom: 0.25rem;
+}
+
+.mt-1 {
+  margin-top: 1rem;
 }
 
 .edit-action-buttons {

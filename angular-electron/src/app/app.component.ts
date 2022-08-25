@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SaveFileService } from './core/services/save-file/save-file.service';
 import { UserDataService } from './core/services/user-data/user-data.service';
+import { AddRunDialogComponent } from './dialogs/add-run/add-run.component';
 import { NewSaveDialogComponent } from './dialogs/new-save/new-save.component';
 import {
   TimeSlipTrackingFile,
@@ -97,7 +98,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  async createNewSave() {
+  createNewSave() {
     const dialogRef = this.dialog.open(NewSaveDialogComponent, {
       minWidth: '50vw',
     });
@@ -118,6 +119,12 @@ export class AppComponent implements OnInit {
           data: this.timeTracking,
         });
       }
+    });
+  }
+
+  openNewRun() {
+    const dialogRef = this.dialog.open(AddRunDialogComponent, {
+      minWidth: '50vw',
     });
   }
 

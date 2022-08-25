@@ -1,0 +1,163 @@
+<mat-card>
+  <mat-card-title>Add New Run</mat-card-title>
+  <mat-card-content [formGroup]="form">
+    <mat-divider [inset]="false"></mat-divider>
+    <div class="input-container mt-1">
+      <div class="col">
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input
+            matInput
+            id="date"
+            [matDatepicker]="picker"
+            aria-label="Enter Run Date."
+            formControlName="date"
+            required
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Reaction Time</mat-label>
+          <input
+            matInput
+            id="reactionTime"
+            aria-label="Enter Reaction Time."
+            type="text"
+            formControlName="reactionTime"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>60'</mat-label>
+          <input
+            matInput
+            id="sixtyTime"
+            aria-label="Enter 60 Foot Time."
+            type="text"
+            formControlName="sixtyTime"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>330'</mat-label>
+          <input
+            matInput
+            id="threeThirtyTime"
+            aria-label="Enter 330 Foot Time."
+            type="text"
+            formControlName="threeThirtyTime"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>1/8</mat-label>
+          <input
+            matInput
+            id="eighthTime"
+            aria-label="Enter 1/8 Mile Time."
+            type="text"
+            formControlName="eighthTime"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>MPH</mat-label>
+          <input
+            matInput
+            id="mph"
+            aria-label="Enter 1/8 Mile MPH."
+            type="text"
+            formControlName="mph"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="col ml-2">
+        <mat-form-field>
+          <mat-label>Race Track</mat-label>
+          <input
+            matInput
+            id="raceTrack"
+            aria-label="Enter Race Track."
+            type="text"
+            formControlName="raceTrack"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Run Type</mat-label>
+          <mat-select id="runType" formControlName="runType" required>
+            <mat-option *ngFor="let entry of runTypes" [value]="entry[1]">{{
+              entry[0]
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="isCompetition()">
+          <mat-label>Round</mat-label>
+          <mat-select id="round" formControlName="round" required>
+            <mat-option *ngFor="let entry of rounds" [value]="entry">{{
+              entry
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="isCompetition()">
+          <mat-label>Outcome</mat-label>
+          <mat-select id="outcome" formControlName="outcome" required>
+            <mat-option *ngFor="let entry of outcomes" [value]="entry[1]">{{
+              entry[0]
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="isElims()">
+          <mat-label>Opponent</mat-label>
+          <input
+            matInput
+            id="opponent"
+            aria-label="Enter Opponent."
+            type="text"
+            formControlName="opponent"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="col ml-2 flex-fill">
+        <mat-form-field>
+          <mat-label>Notes</mat-label>
+          <textarea
+            matInput
+            id="raceTrack"
+            aria-label="Enter Race Track."
+            type="text"
+            formControlName="raceTrack"
+            required
+          ></textarea>
+        </mat-form-field>
+        <span class="flex-fill"></span>
+        <div class="mt-2 edit-action-buttons">
+          <button
+            id="save"
+            class="ml-2"
+            mat-raised-button
+            (click)="save()"
+            color="primary"
+          >
+            Save
+          </button>
+          <button
+            id="cancel"
+            color="accent"
+            mat-raised-button
+            (click)="cancel()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

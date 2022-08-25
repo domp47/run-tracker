@@ -29,7 +29,7 @@ export interface Run {
   type: RunType;
   round: number | null;
   opponent: string | null;
-  raceTrack: string;
+  raceTrack: string | null;
   result: TimeSlip;
   outcome: Outcome | null;
   notes: string | null;

@@ -9,12 +9,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 // import { MatSortModule } from '@angular/material/sort';
 // import { MatPaginatorModule } from '@angular/material/paginator';
-// import { MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
-// import { MatDatepickerModule } from '@angular/material/datepicker';
-// import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 // import { MatCheckboxModule } from '@angular/material/checkbox';
 // import { MatGridListModule } from '@angular/material/grid-list';
 // import { MatTabsModule } from '@angular/material/tabs';
@@ -37,6 +37,7 @@ import { AppComponent } from './app.component';
 import { NewSaveDialogComponent } from './dialogs/new-save/new-save.component';
 import { RunComponent } from './display-item/run/run.component';
 import { MaintenanceComponent } from './display-item/maintenance/maintenance.component';
+import { AddRunDialogComponent } from './dialogs/add-run/add-run.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { MaintenanceComponent } from './display-item/maintenance/maintenance.com
     NewSaveDialogComponent,
     RunComponent,
     MaintenanceComponent,
+    AddRunDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,11 +68,11 @@ import { MaintenanceComponent } from './display-item/maintenance/maintenance.com
     MatTooltipModule,
     // MatSortModule,
     // MatPaginatorModule,
-    // MatSelectModule,
+    MatSelectModule,
     MatInputModule,
     MatCardModule,
-    // MatDatepickerModule,
-    // MatNativeDateModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     // MatCheckboxModule,
     // MatGridListModule,
     // MatTabsModule,
