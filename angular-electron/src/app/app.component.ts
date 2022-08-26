@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SaveFileService } from './core/services/save-file/save-file.service';
 import { UserDataService } from './core/services/user-data/user-data.service';
+import { AddMaintenanceDialogComponent } from './dialogs/add-maintenance/add-maintenance.component';
 import { AddRunDialogComponent } from './dialogs/add-run/add-run.component';
 import { NewSaveDialogComponent } from './dialogs/new-save/new-save.component';
 import {
@@ -122,6 +123,25 @@ export class AppComponent implements OnInit {
     });
   }
 
+  openNewMaintenance() {
+    const dialogRef = this.dialog.open(AddMaintenanceDialogComponent, {
+      minWidth: '50vw',
+    });
+
+    dialogRef.afterClosed().subscribe(async (result: MaintenanceItem) => {
+      if (!(result === undefined)) {
+        this.timeTracking.maintenance.push(result);
+
+        await this.saveFileService.save({
+          filePath: this.userData.lastFile,
+          data: this.timeTracking,
+        });
+
+        this.calculateTable();
+      }
+    });
+  }
+
   openNewRun() {
     const dialogRef = this.dialog.open(AddRunDialogComponent, {
       minWidth: '50vw',
@@ -131,8 +151,6 @@ export class AppComponent implements OnInit {
       if (!(result === undefined)) {
         result.id = ++this.timeTracking.idCounter;
         this.timeTracking.runs.push(result);
-
-        console.log(this.timeTracking);
 
         await this.saveFileService.save({
           filePath: this.userData.lastFile,

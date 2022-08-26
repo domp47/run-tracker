@@ -1,0 +1,16 @@
+.input-container {
+  display: flex;
+
+  & .col {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.flex-fill {
+  flex: auto;
+}
+
+.mt-auto {
+  margin-top: auto;
+}

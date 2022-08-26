@@ -5,27 +5,13 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { RunType, Run, Outcome } from '../../models/tracking-file.model';
-
-export const DATE_FORMAT = {
-  parse: {
-    dateInput: ['YYYY-MM-DD'],
-  },
-  display: {
-    dateInput: 'YYYY-MM-DD',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
 
 @Component({
   selector: 'app-add-run',
   templateUrl: './add-run.component.html',
   styleUrls: ['./add-run.component.scss'],
-  providers: [{ provide: MAT_DATE_FORMATS, useValue: DATE_FORMAT }],
 })
 export class AddRunDialogComponent implements OnInit {
   form = new FormGroup({

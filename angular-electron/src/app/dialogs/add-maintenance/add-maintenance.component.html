@@ -1,0 +1,66 @@
+<mat-card>
+  <mat-card-title>Add New Maintenance Record</mat-card-title>
+  <mat-card-content [formGroup]="form">
+    <mat-divider [inset]="false"></mat-divider>
+    <div class="input-container mt-1">
+      <div class="col">
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input
+            matInput
+            id="date"
+            [matDatepicker]="picker"
+            aria-label="Enter Run Date."
+            formControlName="date"
+            required
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-checkbox
+          id="resetCounter"
+          class="mt-2"
+          aria-label="Select Whether To Reset Engine Hit Counter."
+          formControlName="resetCounter"
+          required
+          >Reset Engine Hits</mat-checkbox
+        >
+      </div>
+      <div class="col ml-2 flex-fill mt-auto">
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="5"
+            matInput
+            id="description"
+            aria-label="Enter Maintenance Description."
+            type="text"
+            formControlName="description"
+            required
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="mt-2 edit-action-buttons">
+      <button
+        id="save"
+        class="ml-2"
+        mat-raised-button
+        (click)="save()"
+        color="primary"
+      >
+        Save
+      </button>
+      <button id="cancel" color="accent" mat-raised-button (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

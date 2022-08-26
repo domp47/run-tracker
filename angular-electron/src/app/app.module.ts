@@ -15,7 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-// import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 // import { MatGridListModule } from '@angular/material/grid-list';
 // import { MatTabsModule } from '@angular/material/tabs';
 // import { MatChipsModule } from '@angular/material/chips';
@@ -38,6 +38,7 @@ import { NewSaveDialogComponent } from './dialogs/new-save/new-save.component';
 import { RunComponent } from './display-item/run/run.component';
 import { MaintenanceComponent } from './display-item/maintenance/maintenance.component';
 import { AddRunDialogComponent } from './dialogs/add-run/add-run.component';
+import { AddMaintenanceDialogComponent } from './dialogs/add-maintenance/add-maintenance.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { AddRunDialogComponent } from './dialogs/add-run/add-run.component';
     RunComponent,
     MaintenanceComponent,
     AddRunDialogComponent,
+    AddMaintenanceDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,7 @@ import { AddRunDialogComponent } from './dialogs/add-run/add-run.component';
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    // MatCheckboxModule,
+    MatCheckboxModule,
     // MatGridListModule,
     // MatTabsModule,
     // MatChipsModule,
