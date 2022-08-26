@@ -85,11 +85,11 @@ export class AddRunDialogComponent implements OnInit {
         outcome: this.form.value.outcome,
         notes: this.form.value.notes,
         result: {
-          reactionTime: this.form.value.sixtyTime,
-          sixtyFoot: this.form.value.sixtyTime,
-          threeThirtyFoot: this.form.value.threeThirtyTime,
-          eighthMile: this.form.value.eighthTime,
-          mph: this.form.value.mph,
+          reactionTime: +this.form.value.reactionTime,
+          sixtyFoot: +this.form.value.sixtyTime,
+          threeThirtyFoot: +this.form.value.threeThirtyTime,
+          eighthMile: +this.form.value.eighthTime,
+          mph: +this.form.value.mph,
         },
       };
       this.dialogRef.close(run);

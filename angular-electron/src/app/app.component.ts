@@ -1,4 +1,10 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SaveFileService } from './core/services/save-file/save-file.service';
 import { UserDataService } from './core/services/user-data/user-data.service';
@@ -33,6 +39,8 @@ export interface PersonalBest {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  @ViewChild('tableItems') private tableItemsDiv: ElementRef;
+
   private userData: UserData;
   private timeTracking: TimeSlipTrackingFile;
 
@@ -75,6 +83,13 @@ export class AppComponent implements OnInit {
       runId: null,
       value: defaultValue,
     };
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.tableItemsDiv.nativeElement.scrollTop =
+        this.tableItemsDiv.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 
   public get rowType(): typeof RowType {
@@ -293,5 +308,7 @@ export class AppComponent implements OnInit {
         }
       }
     }
+
+    this.scrollToBottom();
   }
 }
