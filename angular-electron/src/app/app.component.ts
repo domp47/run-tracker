@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   Component,
   ElementRef,
   OnInit,
@@ -38,13 +39,15 @@ export interface PersonalBest {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
   @ViewChild('tableItems') private tableItemsDiv: ElementRef;
 
   private userData: UserData;
   private timeTracking: TimeSlipTrackingFile;
 
   tableData: TableRow[];
+  setScrollToBottom: boolean = false;
+
   bestRT: PersonalBest = AppComponent.setDefaultPb(Number.POSITIVE_INFINITY);
   best60: PersonalBest = AppComponent.setDefaultPb(Number.POSITIVE_INFINITY);
   bestFS: PersonalBest = AppComponent.setDefaultPb(Number.POSITIVE_INFINITY);
@@ -61,6 +64,11 @@ export class AppComponent implements OnInit {
     private renderer: Renderer2,
     public dialog: MatDialog
   ) {}
+  ngAfterViewChecked(): void {
+    if (this.setScrollToBottom) {
+      this.scrollToBottom();
+    }
+  }
 
   async ngOnInit() {
     this.userData = await this.userDataService.getUserData();
@@ -86,10 +94,20 @@ export class AppComponent implements OnInit {
   }
 
   scrollToBottom(): void {
-    try {
-      this.tableItemsDiv.nativeElement.scrollTop =
-        this.tableItemsDiv.nativeElement.scrollHeight;
-    } catch (err) {}
+    this.setScrollToBottom = false;
+
+    if (this.tableData === undefined) {
+      return;
+    }
+
+    const id = `table-item-${this.tableData.length - 1}`;
+    const element = document.getElementById(id);
+
+    if (element === null) {
+      return;
+    }
+
+    element.scrollIntoView();
   }
 
   public get rowType(): typeof RowType {
@@ -190,6 +208,20 @@ export class AppComponent implements OnInit {
 
     this.timeTracking = save.data;
     this.calculateTable();
+  }
+
+  focusOnPb(pb: PersonalBest) {
+    const pbId = pb.runId;
+    if (pbId === null) {
+      return;
+    }
+
+    const element = document.getElementById(`run-${pbId}`);
+    if (element === null) {
+      return;
+    }
+
+    element.scrollIntoView();
   }
 
   calculateTable() {
@@ -309,6 +341,6 @@ export class AppComponent implements OnInit {
       }
     }
 
-    this.scrollToBottom();
+    this.setScrollToBottom = true;
   }
 }

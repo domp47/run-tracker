@@ -12,6 +12,7 @@ export class RunComponent implements OnInit {
 
   @Input() pbRT: PersonalBest;
   @Input() pb60: PersonalBest;
+  @Input() pbFS: PersonalBest;
   @Input() pb330: PersonalBest;
   @Input() pbBS: PersonalBest;
   @Input() pbEighth: PersonalBest;
