@@ -126,6 +126,22 @@ export class AppComponent implements OnInit {
     const dialogRef = this.dialog.open(AddRunDialogComponent, {
       minWidth: '50vw',
     });
+
+    dialogRef.afterClosed().subscribe(async (result: Run) => {
+      if (!(result === undefined)) {
+        result.id = ++this.timeTracking.idCounter;
+        this.timeTracking.runs.push(result);
+
+        console.log(this.timeTracking);
+
+        await this.saveFileService.save({
+          filePath: this.userData.lastFile,
+          data: this.timeTracking,
+        });
+
+        this.calculateTable();
+      }
+    });
   }
 
   async openSave() {
@@ -144,7 +160,7 @@ export class AppComponent implements OnInit {
   }
 
   calculateTable() {
-    const maintenance = this.timeTracking?.maintenance ?? [];
+    const maintenance = structuredClone(this.timeTracking?.maintenance ?? []);
     maintenance.sort((a: MaintenanceItem, b: MaintenanceItem) => {
       if (a.date < b.date) {
         return -1;
@@ -157,7 +173,7 @@ export class AppComponent implements OnInit {
       return 0;
     });
 
-    const runs = this.timeTracking?.runs ?? [];
+    const runs = structuredClone(this.timeTracking?.runs ?? []);
     runs.sort((a: Run, b: Run) => {
       if (a.date < b.date) {
         return -1;

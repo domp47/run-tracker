@@ -19,8 +19,8 @@ export interface TimeSlip {
 }
 
 export enum Outcome {
-  WIN,
-  LOSS,
+  WIN = 'win',
+  LOSS = 'loss',
 }
 
 export interface Run {

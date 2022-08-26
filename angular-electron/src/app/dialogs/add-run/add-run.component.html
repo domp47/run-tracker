@@ -105,7 +105,7 @@
             }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field *ngIf="isCompetition()">
+        <mat-form-field *ngIf="isElims()">
           <mat-label>Outcome</mat-label>
           <mat-select id="outcome" formControlName="outcome" required>
             <mat-option *ngFor="let entry of outcomes" [value]="entry[1]">{{
@@ -125,10 +125,14 @@
           />
         </mat-form-field>
       </div>
-      <div class="col ml-2 flex-fill">
+      <div class="col ml-2 flex-fill mt-auto">
         <mat-form-field>
           <mat-label>Notes</mat-label>
           <textarea
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="19"
+            cdkAutosizeMaxRows="19"
             matInput
             id="raceTrack"
             aria-label="Enter Race Track."
@@ -137,27 +141,21 @@
             required
           ></textarea>
         </mat-form-field>
-        <span class="flex-fill"></span>
-        <div class="mt-2 edit-action-buttons">
-          <button
-            id="save"
-            class="ml-2"
-            mat-raised-button
-            (click)="save()"
-            color="primary"
-          >
-            Save
-          </button>
-          <button
-            id="cancel"
-            color="accent"
-            mat-raised-button
-            (click)="cancel()"
-          >
-            Cancel
-          </button>
-        </div>
       </div>
+    </div>
+    <div class="mt-2 edit-action-buttons">
+      <button
+        id="save"
+        class="ml-2"
+        mat-raised-button
+        (click)="save()"
+        color="primary"
+      >
+        Save
+      </button>
+      <button id="cancel" color="accent" mat-raised-button (click)="cancel()">
+        Cancel
+      </button>
     </div>
   </mat-card-content>
 </mat-card>

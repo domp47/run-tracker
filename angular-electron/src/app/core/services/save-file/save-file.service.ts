@@ -103,9 +103,11 @@ export class SaveFileService {
   }
 
   async save(saveFile: SaveFile) {
-    await this.filesService.writeFile(
-      saveFile.filePath,
-      JSON.stringify(saveFile.data)
-    );
+    if (this.electronService.isElectron) {
+      await this.filesService.writeFile(
+        saveFile.filePath,
+        JSON.stringify(saveFile.data)
+      );
+    }
   }
 }
