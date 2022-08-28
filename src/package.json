@@ -1,6 +1,6 @@
 {
   "name": "time-slip-tracker",
-  "version": "10.0.0",
+  "version": "1.0.0",
   "main": "app/main.js",
   "private": true,
   "scripts": {

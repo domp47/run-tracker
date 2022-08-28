@@ -84,6 +84,7 @@ export class AddRunDialogComponent implements OnInit {
         raceTrack: this.form.value.raceTrack,
         outcome: this.form.value.outcome,
         notes: this.form.value.notes,
+        runCount: null,
         result: {
           reactionTime: +this.form.value.reactionTime,
           sixtyFoot: +this.form.value.sixtyTime,

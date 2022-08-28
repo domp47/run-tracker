@@ -33,6 +33,7 @@ export interface Run {
   result: TimeSlip;
   outcome: Outcome | null;
   notes: string | null;
+  runCount: number;
 }
 
 export interface TimeSlipTrackingFile {

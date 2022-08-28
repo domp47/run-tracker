@@ -82,6 +82,7 @@ export class SaveFileService {
             outcome: null,
             notes: 'Added 1 degree all the way',
             raceTrack: 'TMP',
+            runCount: null,
             result: {
               reactionTime: 0.053,
               sixtyFoot: 1.208,

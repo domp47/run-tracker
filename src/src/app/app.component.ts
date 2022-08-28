@@ -40,9 +40,7 @@ export interface PersonalBest {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewChecked {
-  @ViewChild('tableItems') private tableItemsDiv: ElementRef;
-
-  private userData: UserData;
+  userData: UserData;
   private timeTracking: TimeSlipTrackingFile;
 
   tableData: TableRow[];
@@ -56,7 +54,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
   bestEighth: PersonalBest = AppComponent.setDefaultPb(
     Number.POSITIVE_INFINITY
   );
-  BestMPH: PersonalBest = AppComponent.setDefaultPb(Number.NEGATIVE_INFINITY);
+  bestMPH: PersonalBest = AppComponent.setDefaultPb(Number.NEGATIVE_INFINITY);
 
   constructor(
     private userDataService: UserDataService,
@@ -332,8 +330,8 @@ export class AppComponent implements OnInit, AfterViewChecked {
           };
         }
 
-        if (run.result.mph > this.BestMPH.value) {
-          this.BestMPH = {
+        if (run.result.mph > this.bestMPH.value) {
+          this.bestMPH = {
             runId: run.id,
             value: run.result.mph,
           };

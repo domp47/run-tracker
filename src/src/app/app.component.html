@@ -67,7 +67,7 @@
     <mat-card class="dark-card clickable" (click)="focusOnPb(bestMPH)">
       <mat-card-title>MPH</mat-card-title>
       <mat-card-content>{{
-        BestMPH?.value | number: "1.2-2"
+        bestMPH?.value | number: "1.2-2"
       }}</mat-card-content>
     </mat-card>
   </div>
@@ -95,18 +95,18 @@
     >
       <app-maintenance
         *ngIf="row.type == rowType.MAINTENANCE"
-        [maintenance]="row.item"
+        [maintenance]="$any(row.item)"
       ></app-maintenance>
       <app-run
         *ngIf="row.type == rowType.RUN"
-        [run]="row.item"
+        [run]="$any(row.item)"
         [pbRT]="bestRT"
         [pb60]="best60"
         [pbFS]="bestFS"
         [pb330]="best330"
         [pbBS]="bestBS"
         [pbEighth]="bestEighth"
-        [pbMPH]="BestMPH"
+        [pbMPH]="bestMPH"
       ></app-run>
     </div>
   </div>
