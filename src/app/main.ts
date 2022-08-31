@@ -103,7 +103,7 @@ ipcMain.handle('choose-open-file', (_event, title: string) => {
     filters: [
       {
         name: 'TST Files',
-        extensions: ['.tst'],
+        extensions: ['tst'],
       },
     ],
     properties: ['openFile'],
@@ -116,7 +116,7 @@ ipcMain.handle('choose-save-file', (_event, title: string) => {
     filters: [
       {
         name: 'TST Files',
-        extensions: ['.tst'],
+        extensions: ['tst'],
       },
     ],
   });

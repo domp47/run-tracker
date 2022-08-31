@@ -53,6 +53,10 @@ export class SaveFileService {
         );
       }
 
+      if (filePath.constructor.name === 'Array' && !(filePath === undefined)) {
+        filePath = filePath[0];
+      }
+
       const saveDataStr = await this.filesService.readFile(filePath);
 
       if (saveDataStr === undefined) {

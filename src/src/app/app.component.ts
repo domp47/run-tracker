@@ -73,9 +73,10 @@ export class AppComponent implements OnInit, AfterViewChecked {
     this.setTheme(this.userData.darkMode);
 
     if (!(this.userData.lastFile === undefined)) {
-      this.timeTracking = (
-        await this.saveFileService.loadSave(this.userData.lastFile)
-      ).data;
+      const saveFile = await this.saveFileService.loadSave(
+        this.userData.lastFile
+      );
+      this.timeTracking = saveFile.data;
       this.calculateTable();
     }
   }
