@@ -1,5 +1,9 @@
 {
   "name": "time-slip-tracker",
+  "author": {
+    "name": "Domenic Perriccioli"
+  },
+  "description": "Time Slip Tracker For Drag Racing Times",
   "version": "1.0.0",
   "main": "main.js",
   "private": true,

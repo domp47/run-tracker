@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "app/main.js",
   "private": true,
+  "author": {
+    "name": "Domenic Perriccioli"
+  },
+  "description": "Time Slip Tracker For Drag Racing Times",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
@@ -16,7 +20,8 @@
     "electron:serve-tsc": "tsc -p tsconfig.serve.json",
     "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && electron . --serve",
     "electron:local": "npm run build:prod && electron .",
-    "electron:build": "npm run build:prod && electron-builder build --publish=never",
+    "electron:build-linux": "npm run build:prod && electron-builder build --linux --publish=never --config=app/build/config.yml",
+    "electron:build-win": "npm run build:prod && electron-builder build --win --publish=never --config=app/build/config.yml",
     "test": "ng test --watch=false",
     "test:watch": "ng test",
     "lint": "ng lint",

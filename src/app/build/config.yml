@@ -1,0 +1,25 @@
+appId: com.time-slip-tracker
+productName: Time Slip Tracker
+asar: true
+directories:
+  output: "release"
+  buildResources: build
+files:
+  - filter:
+      - "**/*"
+      - "!**/*.ts"
+      - "!*.map"
+      - "!package.json"
+      - "!package-lock.json"
+  - from: ../dist
+    filter:
+      - "**/*"
+win:
+  target: portable
+  artifactName: timeSlipTracker.exe
+  icon: "app/build/icon.ico"
+linux:
+  target: AppImage
+  artifactName: timeSlipTracker
+  category: Utility
+  icon: "app/build/icon.icns"
