@@ -1,0 +1,75 @@
+name: Publish Binaries To Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-app:
+    name: Build Electron And Upload
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        working-directory: src
+        run: |
+          npm ci
+
+      - name: Build Linux
+        working-directory: src
+        run: |
+          npm run electron:build-linux
+          mv release/timeSlipTracker ../TimeSlipTracker
+          rm -r release
+
+      - name: Upload Linux To Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./TimeSlipTracker
+          asset_name: TimeSlipTracker
+          asset_content_type: application/octet-stream
+
+  build-win:
+    name: Build Electron Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        working-directory: src
+        run: |
+          npm ci
+
+      - name: Build Windows
+        working-directory: src
+        continue-on-error: true
+        run: |
+          npm run electron:build-win
+          mv release/timeSlipTracker.exe ../TimeSlipTracker.exe
+          rm -r release
+
+      - name: Upload Windows To Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./TimeSlipTracker.exe
+          asset_name: TimeSlipTracker.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
